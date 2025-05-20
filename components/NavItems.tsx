@@ -3,6 +3,12 @@ import { Link, NavLink } from 'react-router'
 import { sidebarItems } from '~/constants'
 
 const NavItems = () => {
+  const user = {
+    name: 'Ken',
+    email: 'info@kanan.tech',
+    imageUrl: '/assets/images/david.webp'
+  }
+
   return (
     <section className="nav-items">
       <Link to="/" className="link-logo">
@@ -33,6 +39,30 @@ const NavItems = () => {
             </NavLink>
           ))}
         </nav>
+
+        <footer className="nav-footer">
+          <img
+            src={user?.imageUrl || '/assets/images/david.webp'}
+            alt={user?.name || 'David'}
+          />
+          <article>
+            <h2>{user?.name}</h2>
+            <p>{user?.email}</p>
+          </article>
+
+          <button
+            onClick={() => {
+              console.log('logout')
+            }}
+            className="cursor-pointer"
+          >
+            <img
+              src="/assets/icons/logout.svg"
+              alt="logout"
+              className="size-6"
+            />
+          </button>
+        </footer>
       </div>
     </section>
   )
