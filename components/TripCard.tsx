@@ -1,7 +1,5 @@
 const TripCard = () => {
-  return (
-    <div>TripCard</div>
-  )
+  return <div>TripCard</div>
 }
 
 export default TripCard
