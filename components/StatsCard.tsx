@@ -12,7 +12,6 @@ const StatsCard = ({
   )
 
   const isDecrement = trend === 'decrement'
-  const isIncrement = trend === 'increment'
 
   return (
     <article className="stats-card">
@@ -25,15 +24,13 @@ const StatsCard = ({
           <div className="flex items-center gap-2">
             <figure className="flex items-center gap-1">
               <img
-                src={
-                  isIncrement
-                    ? '/icons/increment.svg'
-                    : isDecrement
-                    ? '/icons/decrement.svg'
-                    : '/icons/neutral.svg'
-                }
-                alt="trend"
+                src={`/assets/icons/${
+                  isDecrement ? 'arrow-down-red.svg' : 'arrow-up-green.svg'
+                }`}
+                alt="arrow icon"
+                className="size-5"
               />
+              <figcaption>{Math.round(percentage)}%</figcaption>
             </figure>
           </div>
         </div>
