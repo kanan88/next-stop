@@ -142,12 +142,6 @@ export const RIGHT_CONFETTI = {
   origin: { x: 1, y: 1 }
 }
 
-export const user = {
-  name: 'Ken',
-  email: 'info@kanan.tech',
-  imageUrl: '/assets/images/david.webp'
-}
-
 export const dashboardStats = {
   totalUsers: 12450,
   usersJoined: { currentMonth: 218, lastMonth: 176 },
