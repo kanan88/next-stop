@@ -22,7 +22,7 @@ const Dashboard = () => {
           />
           <StatsCard
             headerTitle="Total Trips"
-            total={totalUsers}
+            total={totalTrips}
             currentMonthCount={tripsCreated.currentMonth}
             lastMonthCount={tripsCreated.lastMonth}
           />
