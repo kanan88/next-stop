@@ -150,20 +150,10 @@ export const user = {
 
 export const dashboardStats = {
   totalUsers: 12450,
-  usersJoined: {
-    currentMonth: 218,
-    lastMonth: 176
-  },
+  usersJoined: { currentMonth: 218, lastMonth: 176 },
   totalTrips: 3210,
-  tripsCreated: {
-    currentMonth: 150,
-    lastMonth: 250
-  },
-  userRole: {
-    total: 62,
-    currentMonth: 25,
-    lastMonth: 15
-  }
+  tripsCreated: { currentMonth: 150, lastMonth: 250 },
+  userRole: { total: 62, currentMonth: 25, lastMonth: 15 }
 }
 
 export const allTrips = [
