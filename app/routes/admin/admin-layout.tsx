@@ -7,11 +7,9 @@ import { account } from '~/appwrite/client'
 export async function clientLoader() {
   try {
     const user = await account.get()
-
     if (!user.$id) return redirect('/sign-in')
 
     const existingUser = await getExistingUser(user.$id)
-
     if (existingUser?.status === 'user') return redirect('/')
 
     return existingUser?.$id ? existingUser : await storeUserData()
@@ -38,4 +36,5 @@ const AdminLayout = () => {
     </div>
   )
 }
+
 export default AdminLayout
