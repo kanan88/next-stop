@@ -1,3 +1,4 @@
+import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
 import { ComboBoxComponent } from '@syncfusion/ej2-react-dropdowns'
 import {
   LayerDirective,
@@ -21,7 +22,7 @@ export const loader = async () => {
     name: country.flag + ' ' + country.name.common,
     coordinates: country.latlng,
     value: country.name.common,
-    openStreetMap: country.maps.openStreetMap
+    openStreetMap: country.maps.openStreetMaps
   }))
 }
 
@@ -36,6 +37,8 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
     duration: 0,
     groupType: ''
   })
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const countryData = countries.map(country => ({
     text: country.name,
@@ -52,7 +55,10 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
     }
   ]
 
-  const handleSubmit = async () => {}
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setLoading(true)
+  }
 
   const handleChange = (key: keyof TripFormData, value: string | number) => {
     setFormData({ ...formData, [key]: value })
@@ -154,6 +160,30 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
               </LayersDirective>
             </MapsComponent>
           </div>
+
+          <div className="bg-gray-200 h-px w-full" />
+
+          {error && (
+            <div className="error">
+              <p>{error}</p>
+            </div>
+          )}
+
+          <footer className="px-6 w-full">
+            <ButtonComponent
+              type="submit"
+              className="button-class !h-12 !w-full"
+              disabled={loading}
+            >
+              <img
+                src={`/assets/icons/${loading ? 'loader' : 'magic-star'}.svg`}
+                alt="create icon"
+              />
+              <span className="p-16-semibold text-white">
+                {loading ? 'Generating...' : 'Generate Trip'}
+              </span>
+            </ButtonComponent>
+          </footer>
         </form>
       </section>
     </main>
