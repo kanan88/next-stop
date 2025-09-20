@@ -6,8 +6,10 @@ import {
   MapsComponent
 } from '@syncfusion/ej2-react-maps'
 import { Header } from 'components'
-import { formatKey } from 'lib/utils'
+import { cn, formatKey } from 'lib/utils'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
+import { account } from '~/appwrite/client'
 import { comboBoxItems, selectItems } from '~/constants'
 import { world_map } from '~/constants/world_map'
 import type { Route } from './+types/create-trip'
@@ -28,6 +30,7 @@ export const loader = async () => {
 
 const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
   const countries = loaderData as Country[]
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState<TripFormData>({
     country: countries[0]?.name || '',
@@ -55,9 +58,61 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
     }
   ]
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     setLoading(true)
+
+    if (
+      !formData.country ||
+      !formData.travelStyle ||
+      !formData.interest ||
+      !formData.budget ||
+      !formData.groupType
+    ) {
+      setError('Please provide values for all fields')
+      setLoading(false)
+      return
+    }
+
+    if (formData.duration < 1 || formData.duration > 10) {
+      setError('Duration must be between 1 and 10 days')
+      setLoading(false)
+      return
+    }
+
+    const user = await account.get()
+    if (!user.$id) {
+      console.log('User not authenticated')
+      setLoading(false)
+      return
+    }
+
+    try {
+      const response = await fetch('/api/create-trip', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          country: formData.country,
+          numberOfDays: formData.duration,
+          travelStyle: formData.travelStyle,
+          interests: formData.interest,
+          budget: formData.budget,
+          groupType: formData.groupType,
+          userId: user.$id
+        })
+      })
+
+      const result: CreateTripResponse = await response.json()
+
+      if (result?.id) navigate(`/trips/${result.id}`)
+      else console.error('Failed to generate a trip')
+    } catch (e) {
+      console.error('Error generating trip: ', e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleChange = (key: keyof TripFormData, value: string | number) => {
@@ -178,6 +233,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
               <img
                 src={`/assets/icons/${loading ? 'loader' : 'magic-star'}.svg`}
                 alt="create icon"
+                className={cn('size-5', { 'animate-spin': loading })}
               />
               <span className="p-16-semibold text-white">
                 {loading ? 'Generating...' : 'Generate Trip'}
