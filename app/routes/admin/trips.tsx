@@ -76,4 +76,5 @@ const Trips = ({ loaderData }: Route.ComponentProps) => {
     </main>
   )
 }
+
 export default Trips

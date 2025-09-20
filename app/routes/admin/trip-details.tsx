@@ -221,4 +221,5 @@ const TripDetails = ({ loaderData }: { loaderData: TripDetailsLoaderData }) => {
     </main>
   )
 }
+
 export default TripDetails
