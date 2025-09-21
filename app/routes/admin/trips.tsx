@@ -1,9 +1,9 @@
 import { PagerComponent } from '@syncfusion/ej2-react-grids'
+import { Header, TripCard } from 'components'
 import { parseTripData } from 'lib/utils'
 import { useState } from 'react'
 import { type LoaderFunctionArgs, useSearchParams } from 'react-router'
 import { getAllTrips } from '~/appwrite/trips'
-import { Header, TripCard } from '../../../components'
 import type { Route } from './+types/trips'
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
