@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react'
 import {
   isRouteErrorResponse,
   Links,
@@ -24,6 +23,7 @@ export const links: Route.LinksFunction = () => [
 ]
 
 import { registerLicense } from '@syncfusion/ej2-base'
+import { Analytics } from '@vercel/analytics/react'
 
 registerLicense(import.meta.env.VITE_SYNCFUSION_LICENSE_KEY)
 
